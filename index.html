@@ -106,20 +106,16 @@ function initialize() {
       '</div>'+
       '</div>';
 
-  var ioaInfoWindow = new google.maps.InfoWindow({
-      content: ioaInfoString
-  });
-
-  var workInfoWindow = new google.maps.InfoWindow({
-      content: workInfoString
-  });
+  var infoWindow = new google.maps.InfoWindow();
 
   google.maps.event.addListener(ginasWorkMarker, 'click', function() {
-    workInfoWindow.open(map,ginasWorkMarker);
+    infoWindow.setContent(workInfoString);
+    infoWindow.open(map,ginasWorkMarker);
   });
 
   google.maps.event.addListener(ioaMarker, 'click', function() {
-    ioaInfoWindow.open(map,ioaMarker);
+    infoWindow.setContent(ioaInfoString);
+    infoWindow.open(map,ioaMarker);
   });
 
 
