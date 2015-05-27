@@ -26,7 +26,11 @@ var map;
 var panorama;
 //var ginasWork = new google.maps.LatLng(41.877896, -87.633334);
 var ginasWork = new google.maps.LatLng(41.878050, -87.633334);
-var ioa = new google.maps.LatLng(41.879547, -87.623724);
+var ioa = new google.maps.LatLng(41.879547, -87.624224);
+var followme = new google.maps.LatLng(41.878130, -87.632414);
+var straightahead = new google.maps.LatLng(41.878130, -87.630191);
+var keepgoing = new google.maps.LatLng(41.878130, -87.626814);
+var turnleft = new google.maps.LatLng(41.878280, -87.624174);
 
 function initialize() {
 
@@ -43,8 +47,36 @@ function initialize() {
   var ginasWorkMarker = new google.maps.Marker({
       position: ginasWork,
       map: map,
-      icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=cafe|FFFF00',
-      title: 'Work'
+      icon: 'images/work.png',
+      title: 'These will be your new office is a few months. No time to look around now, turn left and walk 7 blocks.'
+  });
+
+  var followmeMarker = new google.maps.Marker({
+      position: followme,
+      map: map,
+      icon: 'images/followme.png',
+      title: 'keep going'
+  });
+
+  var straightaheadMarker = new google.maps.Marker({
+      position: straightahead,
+      map: map,
+      icon: 'images/straightahead.png',
+      title: 'keep going'
+  });
+
+  var keepgoingMarker = new google.maps.Marker({
+      position: keepgoing,
+      map: map,
+      icon: 'images/keepgoing.png',
+      title: 'keep going'
+  });
+
+  var turnleftMarker = new google.maps.Marker({
+      position: turnleft,
+      map: map,
+      icon: 'images/turnleft.png',
+      title: 'keep going'
   });
 
   var ioaMarker = new google.maps.Marker({
@@ -52,6 +84,42 @@ function initialize() {
       map: map,
       icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=dollar|FFFF00',
       title: 'Institute of Art'
+  });
+
+  var ioaInfoString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">Institute of Art</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Happy birthday Gina!</b></p>'+
+      '<p>Hopefully this replaces the Barbican</p>'+
+      '</div>'+
+      '</div>';
+
+  var workInfoString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">ABN AMRO</h1>'+
+      '<div id="bodyContent">'+
+      '<p>Welcome to your new office</p>'+
+      '<p>No time to look around now, turn left and head down 7 blocks</p>'+
+      '</div>'+
+      '</div>';
+
+  var ioaInfoWindow = new google.maps.InfoWindow({
+      content: ioaInfoString
+  });
+
+  var workInfoWindow = new google.maps.InfoWindow({
+      content: workInfoString
+  });
+
+  google.maps.event.addListener(ginasWorkMarker, 'click', function() {
+    workInfoWindow.open(map,ginasWorkMarker);
+  });
+
+  google.maps.event.addListener(ioaMarker, 'click', function() {
+    ioaInfoWindow.open(map,ioaMarker);
   });
 
 
