@@ -27,10 +27,12 @@ var panorama;
 //var ginasWork = new google.maps.LatLng(41.877896, -87.633334);
 var ginasWork = new google.maps.LatLng(41.878050, -87.633334);
 var ioa = new google.maps.LatLng(41.879547, -87.624224);
-var followme = new google.maps.LatLng(41.878130, -87.632414);
-var straightahead = new google.maps.LatLng(41.878130, -87.630191);
-var keepgoing = new google.maps.LatLng(41.878130, -87.626814);
-var turnleft = new google.maps.LatLng(41.878280, -87.624174);
+var waypoint1 = new google.maps.LatLng(41.878130, -87.632414);
+var waypoint2 = new google.maps.LatLng(41.878130, -87.630191);
+var waypoint3 = new google.maps.LatLng(41.878170, -87.627814);
+var waypoint4 = new google.maps.LatLng(41.878250, -87.625191);
+var turnleft = new google.maps.LatLng(41.878280, -87.624324);
+var turnright = new google.maps.LatLng(41.879547, -87.624424);
 
 function initialize() {
 
@@ -51,38 +53,52 @@ function initialize() {
       title: 'These will be your new office is a few months. No time to look around now, turn left and walk 7 blocks.'
   });
 
-  var followmeMarker = new google.maps.Marker({
-      position: followme,
+  var waypoint1Marker = new google.maps.Marker({
+      position: waypoint1,
       map: map,
-      icon: 'images/followme.png',
+      icon: 'images/direction_up.png',
       title: 'keep going'
   });
 
-  var straightaheadMarker = new google.maps.Marker({
-      position: straightahead,
+  var waypoint2Marker = new google.maps.Marker({
+      position: waypoint2,
       map: map,
-      icon: 'images/straightahead.png',
+      icon: 'images/direction_up.png',
       title: 'keep going'
   });
 
-  var keepgoingMarker = new google.maps.Marker({
-      position: keepgoing,
+  var waypoint3Marker = new google.maps.Marker({
+      position: waypoint3,
       map: map,
-      icon: 'images/keepgoing.png',
+      icon: 'images/direction_up.png',
+      title: 'keep going'
+  });
+
+  var waypoint4Marker = new google.maps.Marker({
+      position: waypoint4,
+      map: map,
+      icon: 'images/direction_up.png',
       title: 'keep going'
   });
 
   var turnleftMarker = new google.maps.Marker({
       position: turnleft,
       map: map,
-      icon: 'images/turnleft.png',
+      icon: 'images/direction_left.png',
+      title: 'keep going'
+  });
+
+  var turnrightMarker = new google.maps.Marker({
+      position: turnright,
+      map: map,
+      icon: 'images/direction_right.png',
       title: 'keep going'
   });
 
   var ioaMarker = new google.maps.Marker({
       position: ioa,
       map: map,
-      icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=dollar|FFFF00',
+      icon: 'images/art-museum-2.png',
       title: 'Institute of Art'
   });
 
@@ -106,18 +122,61 @@ function initialize() {
       '</div>'+
       '</div>';
 
+  var waypoint1Info = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading"></h1>'+
+      '<div id="bodyContent">'+
+      '<p>Straight ahead</p>'+
+      '</div>'+
+      '</div>';
+
+  var waypoint2Info = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading"></h1>'+
+      '<div id="bodyContent">'+
+      "<p>Don't stop. Keep going</p>"+
+      '</div>'+
+      '</div>';
+
+  var waypoint3Info = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading"></h1>'+
+      '<div id="bodyContent">'+
+      '<p>Straight under the train line</p>'+
+      '</div>'+
+      '</div>';
+
+  var waypoint4Info = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading"></h1>'+
+      '<div id="bodyContent">'+
+      '<p>Move along, nothing to see here</p>'+
+      '</div>'+
+      '</div>';
+
+  var turnleftInfo = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading"></h1>'+
+      '<div id="bodyContent">'+
+      '<p>Okay, turn left. Nearly there</p>'+
+      '</div>'+
+      '</div>';
+
+  var turnrightInfo = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading"></h1>'+
+      '<div id="bodyContent">'+
+      '<p>Well, well. What do we have here</p>'+
+      '</div>'+
+      '</div>';
+
   var infoWindow = new google.maps.InfoWindow();
-
-  google.maps.event.addListener(ginasWorkMarker, 'click', function() {
-    infoWindow.setContent(workInfoString);
-    infoWindow.open(map,ginasWorkMarker);
-  });
-
-  google.maps.event.addListener(ioaMarker, 'click', function() {
-    infoWindow.setContent(ioaInfoString);
-    infoWindow.open(map,ioaMarker);
-  });
-
 
   // We get the map's default panorama and set up some defaults.
   // Note that we don't yet set it visible.
@@ -128,6 +187,46 @@ function initialize() {
     pitch: -10
   }));
   panorama.setVisible(true);
+
+  google.maps.event.addListener(ginasWorkMarker, 'click', function() {
+    infoWindow.setContent(workInfoString);
+    infoWindow.open(panorama,ginasWorkMarker);
+  });
+
+  google.maps.event.addListener(ioaMarker, 'click', function() {
+    infoWindow.setContent(ioaInfoString);
+    infoWindow.open(panorama,ioaMarker);
+  });
+
+  google.maps.event.addListener(waypoint1Marker, 'click', function() {
+    infoWindow.setContent(waypoint1Info);
+    infoWindow.open(panorama,waypoint1Marker);
+  });
+
+  google.maps.event.addListener(waypoint2Marker, 'click', function() {
+    infoWindow.setContent(waypoint2Info);
+    infoWindow.open(panorama,waypoint2Marker);
+  });
+
+  google.maps.event.addListener(waypoint3Marker, 'click', function() {
+    infoWindow.setContent(waypoint3Info);
+    infoWindow.open(panorama,waypoint3Marker);
+  });
+
+  google.maps.event.addListener(waypoint4Marker, 'click', function() {
+    infoWindow.setContent(waypoint4Info);
+    infoWindow.open(panorama,waypoint4Marker);
+  });
+
+  google.maps.event.addListener(turnleftMarker, 'click', function() {
+    infoWindow.setContent(turnleftInfo);
+    infoWindow.open(panorama,turnleftMarker);
+  });
+
+  google.maps.event.addListener(turnrightMarker, 'click', function() {
+    infoWindow.setContent(turnrightInfo);
+    infoWindow.open(panorama,turnrightMarker);
+  });
 }
 
 function toggleStreetView() {
